@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>NOANIME</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+:root{
+    --bg:#f4f5f9;
+    --card:#ffffff;
+    --card2:#eef0f6;
+    --text:#1a1a24;
+    --muted:#717182;
+    --primary:#8b12ff;
+    --primary2:#a832ff;
+    --danger:#ff2a6d;
+    --border:#e1e4ed;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:Arial,Helvetica,sans-serif;
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+button,input{
+    font-family:inherit;
+}
+
+button{
+    border:0;
+    cursor:pointer;
+}
+
+.app{
+    min-height:100vh;
+    padding-bottom:80px;
+}
+
+/* HEADER */
+
+.header{
+    padding:20px 16px 10px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo-container{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.logo-icon{
+    width:34px;
+    height:34px;
+}
+
+.logo{
+    font-size:24px;
+    font-weight:900;
+    letter-spacing:-0.5px;
+    color:var(--text);
+}
+
+.logo span{
+    color:var(--primary);
+}
+
+.header-button{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:var(--card);
+    border:1px solid var(--border);
+    color:var(--text);
+    font-size:20px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.04);
+}
+
+/* SEARCH */
+
+.search-container{
+    padding:10px 16px;
+}
+
+.search{
+    width:100%;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:15px;
+    padding:14px 16px;
+    color:var(--text);
+    outline:none;
+    font-size:15px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.03);
+}
+
+.search:focus{
+    border-color:var(--primary);
+}
+
+/* HERO */
+
+.hero{
+    margin:12px 16px 24px;
+    min-height:210px;
+    border-radius:22px;
+    padding:25px;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    background:
+        linear-gradient(
+            0deg,
+            rgba(0,0,0,.78),
+            rgba(0,0,0,.08)
+        ),
+        linear-gradient(
+            135deg,
+            #7b2cbf,
+            #3a0ca3 60%,
+            #240046
+        );
+    overflow:hidden;
+    position:relative;
+    color:white;
+    box-shadow:0 10px 25px rgba(123,44,191,0.25);
+}
+
+.hero-badge{
+    display:inline-block;
+    background:white;
+    color:var(--primary);
+    padding:6px 10px;
+    border-radius:20px;
+    font-size:11px;
+    font-weight:bold;
+    width:max-content;
+    margin-bottom:10px;
+}
+
+.hero h1{
+    font-size:27px;
+    margin-bottom:6px;
+}
+
+.hero p{
+    color:#e0e0e0;
+    font-size:13px;
+    line-height:1.5;
+    max-width:310px;
+}
+
+.hero-button{
+    margin-top:15px;
+    width:max-content;
+    background:white;
+    color:var(--text);
+    padding:11px 18px;
+    border-radius:12px;
+    font-weight:bold;
+}
+
+/* SECTIONS */
+
+.section{
+    margin-bottom:28px;
+}
+
+.section-header{
+    padding:0 16px 13px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.section-title{
+    font-size:20px;
+    font-weight:800;
+}
+
+.section-more{
+    color:var(--primary);
+    font-size:12px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* CATEGORY */
+
+.categories{
+    display:flex;
+    gap:10px;
+    overflow-x:auto;
+    padding:0 16px 5px;
+    scrollbar-width:none;
+}
+
+.categories::-webkit-scrollbar{
+    display:none;
+}
+
+.category{
+    flex-shrink:0;
+    background:var(--card);
+    border:1px solid var(--border);
+    color:var(--text);
+    padding:11px 15px;
+    border-radius:13px;
+    font-size:13px;
+    font-weight:600;
+}
+
+.category.active{
+    background:var(--primary);
+    border-color:var(--primary);
+    color:white;
+}
+
+/* MEDIA GRID */
+
+.media-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+    padding:0 16px;
+}
+
+.media-card{
+    background:var(--card);
+    border-radius:16px;
+    overflow:hidden;
+    border:1px solid var(--border);
+    position:relative;
+    box-shadow:0 4px 12px rgba(0,0,0,0.03);
+}
+
+.poster{
+    height:210px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    color:white;
+    background:linear-gradient(145deg,#8b12ff,#5200a3);
+}
+
+.poster.orange{
+    background:linear-gradient(145deg,#ff6b35,#d43d00);
+}
+
+.poster.blue{
+    background:linear-gradient(145deg,#0077b6,#004b72);
+}
+
+.poster.red{
+    background:linear-gradient(145deg,#e63946,#9e1b26);
+}
+
+.poster.green{
+    background:linear-gradient(145deg,#2a9d8f,#185e56);
+}
+
+.poster.pink{
+    background:linear-gradient(145deg,#e01e37,#a10015);
+}
+
+.poster.gold{
+    background:linear-gradient(145deg,#ffb703,#fb8500);
+}
+
+.poster.dark{
+    background:linear-gradient(145deg,#252525,#000000);
+}
+
+.poster-text{
+    font-size:48px;
+    font-weight:900;
+    opacity:.85;
+}
+
+.type{
+    position:absolute;
+    top:9px;
+    left:9px;
+    background:rgba(255,255,255,.9);
+    color:var(--text);
+    padding:5px 8px;
+    border-radius:7px;
+    font-size:9px;
+    font-weight:bold;
+}
+
+.favorite{
+    position:absolute;
+    top:7px;
+    right:7px;
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    background:rgba(255,255,255,.9);
+    color:#aaa;
+    font-size:17px;
+    z-index:2;
+}
+
+.favorite.active{
+    color:var(--danger);
+}
+
+.media-info{
+    padding:11px;
+}
+
+.media-title{
+    font-size:14px;
+    font-weight:bold;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    color:var(--text);
+}
+
+.media-sub{
+    color:var(--muted);
+    font-size:11px;
+    margin-top:5px;
+}
+
+/* SEARCH */
+
+.results{
+    padding:0 16px;
+}
+
+.result{
+    display:flex;
+    gap:12px;
+    padding:11px;
+    margin-bottom:10px;
+    background:var(--card);
+    border-radius:15px;
+    border:1px solid var(--border);
+    cursor:pointer;
+    box-shadow:0 2px 8px rgba(0,0,0,0.03);
+}
+
+.result-poster{
+    width:65px;
+    height:85px;
+    border-radius:10px;
+    background:linear-gradient(145deg,#8b12ff,#5200a3);
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-weight:bold;
+    font-size:25px;
+    flex-shrink:0;
+}
+
+.result-info{
+    flex:1;
+    min-width:0;
+}
+
+.result-title{
+    font-weight:bold;
+    margin-bottom:5px;
+    color:var(--text);
+}
+
+.result-type{
+    color:var(--primary);
+    font-size:11px;
+    font-weight:bold;
+}
+
+.result-description{
+    color:var(--muted);
+    font-size:11px;
+    margin-top:8px;
+    line-height:1.4;
+}
+
+/* EMPTY */
+
+.empty{
+    text-align:center;
+    padding:60px 20px;
+    color:var(--muted);
+    grid-column:1 / -1;
+}
+
+.empty-icon{
+    font-size:45px;
+    margin-bottom:15px;
+}
+
+/* NOTIFICATION */
+
+.notification-panel{
+    display:none;
+    position:fixed;
+    top:70px;
+    right:12px;
+    width:290px;
+    max-width:calc(100vw - 24px);
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:16px;
+    z-index:200;
+    box-shadow:0 10px 30px rgba(0,0,0,.15);
+}
+
+.notification-panel.show{
+    display:block;
+}
+
+.notification-title{
+    font-size:16px;
+    font-weight:800;
+    margin-bottom:12px;
+}
+
+.notification{
+    display:flex;
+    gap:10px;
+    padding:10px 0;
+    border-bottom:1px solid var(--border);
+    font-size:12px;
+    line-height:1.4;
+}
+
+.notification:last-child{
+    border-bottom:0;
+}
+
+.notification-icon{
+    font-size:20px;
+}
+
+/* BOTTOM NAV */
+
+.bottom-nav{
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    height:70px;
+    background:rgba(255,255,255,.95);
+    border-top:1px solid var(--border);
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    z-index:50;
+    backdrop-filter:blur(12px);
+}
+
+.nav-item{
+    background:none;
+    color:#9999a6;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:5px;
+    font-size:10px;
+    font-weight:600;
+}
+
+.nav-icon{
+    font-size:21px;
+}
+
+.nav-item.active{
+    color:var(--primary);
+}
+
+/* PAGE */
+
+.page{
+    display:none;
+    padding:20px 0;
+}
+
+.page.active{
+    display:block;
+}
+
+.page-title{
+    padding:0 16px;
+    font-size:26px;
+    font-weight:900;
+    margin-bottom:20px;
+    color:var(--text);
+}
+
+/* SETTINGS */
+
+.settings-card{
+    margin:0 16px 12px;
+    padding:17px;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+}
+
+.settings-card strong{
+    display:block;
+    margin-bottom:5px;
+}
+
+.settings-card span{
+    color:var(--muted);
+    font-size:12px;
+}
+
+/* DETAIL */
+
+.detail{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:100;
+    background:var(--bg);
+    overflow-y:auto;
+}
+
+.detail-cover{
+    height:320px;
+    background:linear-gradient(145deg,#8b12ff,#5200a3);
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+}
+
+.detail-cover.orange{
+    background:linear-gradient(145deg,#ff6b35,#d43d00);
+}
+
+.detail-cover.blue{
+    background:linear-gradient(145deg,#0077b6,#004b72);
+}
+
+.detail-cover.red{
+    background:linear-gradient(145deg,#e63946,#9e1b26);
+}
+
+.detail-cover.green{
+    background:linear-gradient(145deg,#2a9d8f,#185e56);
+}
+
+.detail-cover.pink{
+    background:linear-gradient(145deg,#e01e37,#a10015);
+}
+
+.detail-cover.gold{
+    background:linear-gradient(145deg,#ffb703,#fb8500);
+}
+
+.detail-cover.dark{
+    background:linear-gradient(145deg,#252525,#000000);
+}
+
+.detail-letter{
+    font-size:90px;
+    font-weight:900;
+    opacity:.85;
+}
+
+.close-detail{
+    position:absolute;
+    top:16px;
+    left:16px;
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    background:white;
+    color:var(--text);
+    font-size:18px;
+    z-index:10;
+    box-shadow:0 4px 10px rgba(0,0,0,0.15);
+}
+
+.detail-content{
+    padding:24px 16px 40px;
+    margin-top:-30px;
+    background:var(--bg);
+    border-radius:25px 25px 0 0;
+    position:relative;
+}
+
+.detail-title{
+    font-size:24px;
+    font-weight:900;
+    margin-bottom:8px;
+    color:var(--text);
+}
+
+.detail-meta{
+    display:flex;
+    gap:10px;
+    margin-bottom:16px;
+    font-size:12px;
+    color:var(--muted);
+    align-items:center;
+}
+
+.detail-badge{
+    background:var(--card);
+    border:1px solid var(--border);
+    padding:4px 8px;
+    border-radius:6px;
+    color:var(--primary);
+    font-weight:bold;
+}
+
+.detail-desc{
+    color:#4a4a5a;
+    font-size:14px;
+    line-height:1.6;
+    margin-bottom:20px;
+}
+
+.detail-fav{
+    width:100%;
+    padding:13px;
+    border-radius:12px;
+    background:var(--card);
+    border:1px solid var(--border);
+    color:var(--text);
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+.action-btn{
+    width:100%;
+    padding:15px;
+    border-radius:12px;
+    background:var(--primary);
+    color:white;
+    font-weight:bold;
+    font-size:15px;
+    box-shadow:0 6px 18px rgba(139,18,255,0.3);
+}
+
+/* PLAYER */
+
+.player{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:300;
+    background:#000;
+    color:white;
+    overflow-y:auto;
+}
+
+.player-header{
+    height:60px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:0 15px;
+    background:#111;
+}
+
+.player-close{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    background:#222;
+    color:white;
+    font-size:18px;
+}
+
+.player-title{
+    font-size:16px;
+    font-weight:bold;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+.video-box{
+    width:100%;
+    aspect-ratio:16/9;
+    background:#111;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.video-placeholder{
+    text-align:center;
+    color:#aaa;
+    padding:20px;
+}
+
+.video-placeholder strong{
+    display:block;
+    color:white;
+    font-size:22px;
+    margin-bottom:10px;
+}
+
+.player-info{
+    padding:20px 16px;
+}
+
+.player-info h2{
+    margin-bottom:8px;
+}
+
+.player-info p{
+    color:#aaa;
+    font-size:13px;
+    line-height:1.5;
+}
+
+/* TOAST */
+
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:85px;
+    transform:translateX(-50%) translateY(20px);
+    background:#1a1a24;
+    color:white;
+    padding:12px 17px;
+    border-radius:12px;
+    font-size:12px;
+    opacity:0;
+    pointer-events:none;
+    transition:.3s;
+    z-index:500;
+    white-space:nowrap;
+    max-width:90%;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
+}
+
+/* RESPONSIVE */
+
+@media(min-width:700px){
+    .media-grid{
+        grid-template-columns:repeat(4,1fr);
+    }
+
+    .poster{
+        height:260px;
+    }
+
+    .hero{
+        min-height:280px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header class="header">
+    <div class="logo-container">
+        <svg class="logo-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#a832ff"/>
+                    <stop offset="100%" stop-color="#8b12ff"/>
+                </linearGradient>
+            </defs>
+
+            <rect width="100" height="100" rx="28" fill="url(#logoGradient)"/>
+
+            <path
+                d="M30 25 V75 L45 75 L70 38 V75 H80 V25 L65 25 L40 62 V25 Z"
+                fill="white"
+            />
+
+            <polygon points="45,42 60,50 45,58" fill="#a832ff"/>
+        </svg>
+
+        <div class="logo">NO<span>ANIME</span></div>
+    </div>
+
+    <button class="header-button" onclick="toggleNotifications()">🔔</button>
+</header>
+
+<!-- NOTIFICATIONS -->
+
+<div id="notificationPanel" class="notification-panel">
+
+    <div class="notification-title">
+        Notifications
+    </div>
+
+    <div class="notification">
+        <div class="notification-icon">🔥</div>
+        <div>
+            <strong>Contenu tendance</strong><br>
+            Solo Leveling est actuellement populaire.
+        </div>
+    </div>
+
+    <div class="notification">
+        <div class="notification-icon">✨</div>
+        <div>
+            <strong>Bienvenue sur NOANIME</strong><br>
+            Explorez votre catalogue.
+        </div>
+    </div>
+
+    <div class="notification">
+        <div class="notification-icon">❤️</div>
+        <div>
+            <strong>Favoris</strong><br>
+            Retrouvez vos contenus préférés ici.
+        </div>
+    </div>
+
+</div>
+
+<!-- SEARCH PAGE -->
+
+<div id="searchPage" class="page">
+
+    <div class="search-container">
+
+        <input
+            type="text"
+            id="searchInput"
+            class="search"
+            placeholder="Rechercher un anime, un manga..."
+            autocomplete="off"
+        >
+
+    </div>
+
+    <div id="searchResults" class="results"></div>
+
+</div>
+
+<!-- HOME -->
+
+<div id="homePage" class="page active">
+
+    <div class="hero">
+
+        <span class="hero-badge">TENDANCE</span>
+
+        <h1>Solo Leveling</h1>
+
+        <p>
+            Le chasseur le plus faible de l'humanité obtient une seconde chance unique.
+        </p>
+
+        <button class="hero-button" onclick="openDetail(0)">
+            Regarder
+        </button>
+
+    </div>
+
+    <!-- CATEGORIES -->
+
+    <div class="section">
+
+        <div class="categories">
+
+            <button
+                class="category active"
+                onclick="filterCategory('all', this)"
+            >
+                Tous
+            </button>
+
+            <button
+                class="category"
+                onclick="filterCategory('action', this)"
+            >
+                Action
+            </button>
+
+            <button
+                class="category"
+                onclick="filterCategory('aventure', this)"
+            >
+                Aventure
+            </button>
+
+            <button
+                class="category"
+                onclick="filterCategory('fantasy', this)"
+            >
+                Fantasy
+            </button>
+
+            <button
+                class="category"
+                onclick="filterCategory('sf', this)"
+            >
+                Sci-Fi
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- POPULAIRES -->
+
+    <div class="section">
+
+        <div class="section-header">
+
+            <h2 class="section-title">
+                Populaires
+            </h2>
+
+            <span
+                class="section-more"
+                onclick="showAllContent()"
+            >
+                Voir tout
+            </span>
+
+        </div>
+
+        <div
+            class="media-grid"
+            id="mediaGrid"
+        ></div>
+
+    </div>
+
+</div>
+
+<!-- FAVORITES -->
+
+<div id="favoritesPage" class="page">
+
+    <h1 class="page-title">
+        Mes Favoris
+    </h1>
+
+    <div
+        class="media-grid"
+        id="favoritesGrid"
+    ></div>
+
+</div>
+
+<!-- SETTINGS -->
+
+<div id="settingsPage" class="page">
+
+    <h1 class="page-title">
+        Paramètres
+    </h1>
+
+    <div class="settings-card">
+        <strong>NOANIME</strong>
+        <span>Version 1.1.0</span>
+    </div>
+
+    <div class="settings-card">
+        <strong>Stockage local</strong>
+        <span>
+            Les favoris sont enregistrés directement sur cet appareil.
+        </span>
+    </div>
+
+    <div class="settings-card">
+        <strong>Mode hors connexion</strong>
+        <span>
+            L'interface reste disponible sans connexion.
+        </span>
+    </div>
+
+    <div class="settings-card">
+        <strong>Catalogue</strong>
+        <span>
+            Démonstration locale — aucun serveur externe connecté.
+        </span>
+    </div>
+
+</div>
+
+<!-- DETAIL -->
+
+<div id="detailModal" class="detail">
+
+    <button
+        class="close-detail"
+        onclick="closeDetail()"
+    >
+        ✕
+    </button>
+
+    <div
+        class="detail-cover"
+        id="detailCover"
+    >
+
+        <div
+            class="detail-letter"
+            id="detailLetter"
+        >
+            A
+        </div>
+
+    </div>
+
+    <div class="detail-content">
+
+        <h1
+            class="detail-title"
+            id="detailTitle"
+        >
+            Titre
+        </h1>
+
+        <div class="detail-meta">
+
+            <span
+                class="detail-badge"
+                id="detailType"
+            >
+                ANIME
+            </span>
+
+            <span id="detailGenre">
+                Action
+            </span>
+
+        </div>
+
+        <p
+            class="detail-desc"
+            id="detailDesc"
+        >
+            Description...
+        </p>
+
+        <button
+            class="detail-fav"
+            id="detailFavButton"
+            onclick="toggleDetailFavorite()"
+        >
+            ♡ Ajouter aux favoris
+        </button>
+
+        <button
+            class="action-btn"
+            onclick="startWatching()"
+        >
+            ▶ Commencer le visionnage
+        </button>
+
+    </div>
+
+</div>
+
+<!-- PLAYER -->
+
+<div id="player" class="player">
+
+    <div class="player-header">
+
+        <button
+            class="player-close"
+            onclick="closePlayer()"
+        >
+            ✕
+        </button>
+
+        <div
+            class="player-title"
+            id="playerTitle"
+        >
+            Lecture
+        </div>
+
+    </div>
+
+    <div class="video-box">
+
+        <div class="video-placeholder">
+
+            <strong>▶ NOANIME</strong>
+
+            <p>
+                Lecteur de démonstration
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="player-info">
+
+        <h2 id="playerAnimeTitle">
+            Titre
+        </h2>
+
+        <p>
+            Le lecteur est prêt à accueillir une véritable source vidéo.
+            Pour le moment, cette version utilise uniquement une interface
+            locale de démonstration.
+        </p>
+
+    </div>
+
+</div>
+
+<!-- BOTTOM NAV -->
+
+<nav class="bottom-nav">
+
+    <button
+        class="nav-item active"
+        onclick="switchTab('homePage', this)"
+    >
+        <span class="nav-icon">🏠</span>
+        <span>Accueil</span>
+    </button>
+
+    <button
+        class="nav-item"
+        onclick="switchTab('searchPage', this)"
+    >
+        <span class="nav-icon">🔍</span>
+        <span>Recherche</span>
+    </button>
+
+    <button
+        class="nav-item"
+        onclick="switchTab('favoritesPage'
